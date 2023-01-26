@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { StarWarsService } from '../star-wars.service';
 
 @Component({
   selector: 'app-list',
@@ -7,11 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  @Input() characters: any;
+  characters: {name: string, side: string}[] = [];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private swService: StarWarsService) { }
 
   ngOnInit(): void {
+    // this function is executed whenever the params in the url change (:side)
+    this.activatedRoute.params.subscribe( (params) => {
+      this.characters = this.swService.getCharacters(params['side'])
+    });
   }
-
 }

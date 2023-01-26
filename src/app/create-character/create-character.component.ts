@@ -22,6 +22,7 @@ export class CreateCharacterComponent implements OnInit {
 
   onSubmit(submittedForm: NgForm) {
     this.starWarsService.addCharacter(submittedForm.value.name, submittedForm.value.side);
+    submittedForm.reset()
   }
 
 }
