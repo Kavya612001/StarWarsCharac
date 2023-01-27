@@ -10,6 +10,7 @@ import { CreateCharacterComponent } from './create-character/create-character.co
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { Route, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Route[]  = [
   {path: 'characters', component: TabsComponent, children: [
@@ -27,13 +28,14 @@ const routes: Route[]  = [
     ListComponent,
     ItemComponent,
     CreateCharacterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

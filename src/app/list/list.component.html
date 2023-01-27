@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="colxs-12" *ngIf="characters.length === 0" >
+    <br>
+      Loading...
+  </div>
+</div>
 <div class="list-group">
   <app-item
   *ngFor="let char of characters"

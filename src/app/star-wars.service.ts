@@ -1,25 +1,29 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import { LogService } from "./log.service";
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StarWarsService {
 
-  private characters = [
-    {
-      name: 'Luke Skywalker',
-      side: '',
-    },
-    {
-      name: 'Darth Vader',
-      side: '',
-    }
-  ];
+  characters : {name: string, side: string} [] = [];
+  // private characters = [
+  //   {
+  //     name: 'Luke Skywalker',
+  //     side: '',
+  //   },
+  //   {
+  //     name: 'Darth Vader',
+  //     side: '',
+  //   }
+  // ];
 
   charactersChanges = new Subject<void>();
-  constructor(private logService: LogService) {}
+  constructor(private logService: LogService, private http: HttpClient) {}
 
   getCharacters(chosenList: string) {
     if(chosenList === 'all') {
@@ -28,6 +32,17 @@ export class StarWarsService {
     return this.characters.filter( (char) => {
       return char.side === chosenList;
     })
+  }
+
+  fetchCharacters() {
+    this.http.get('https://swapi.dev/api/people')
+    .subscribe((data:any) => {
+      const res = data['results'];
+      this.characters = res.map((char: { name: any; }) => {
+        return {name: char.name, side: ''};
+      });
+      this.charactersChanges.next();
+    });
   }
 
   onSideChosen(charInfo: {name: string, side: string}) {

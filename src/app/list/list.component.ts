@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
     );
 
-    this.swService.charactersChanges.subscribe(() => {
+    this.subscription = this.swService.charactersChanges.subscribe(() => {
       this.characters = this.swService.getCharacters(this.loadedSide);
     })
 
