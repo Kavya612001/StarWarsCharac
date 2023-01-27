@@ -1,1 +1,1 @@
--- Link to basic angular app: https://kavya612001.github.io/StarWarsCharac/characters/light
+- Link to basic angular app: https://kavya612001.github.io/StarWarsCharac/characters/all
