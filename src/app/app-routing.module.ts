@@ -1,10 +1,27 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Route, RouterModule } from "@angular/router";
+import { ListComponent } from "./list/list.component";
+import { TabsComponent } from "./tabs/tabs.component";
 
-const routes: Routes = [];
+const routes: Route[]  = [
+  {path: 'characters', component: TabsComponent, children: [
+    {path: '', redirectTo: 'all', pathMatch: 'full'},
+    {path: ':side', component: ListComponent}
+  ]},
+  {path: 'new-character',
+  loadChildren: () => import('./create-character/create-character.module').then(m => m.CreateCharacterModule)
+},
+  {path: '**', redirectTo: '/characters'}
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}
